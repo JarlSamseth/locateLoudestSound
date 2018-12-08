@@ -36,6 +36,8 @@ int sum2=0;
 //int collectionTime =  1/minstFrekvens*1000; //ms
 unsigned long oldTime;
 
+double micAvstand; //=?; TODO: mål avstanden mellom mikrofonene
+
 void setup() {
   //pinMode(microphone1Pin, INPUT);
   Serial.begin(9600);
@@ -47,8 +49,14 @@ void loop() {
     int mean1 = sum1/sizeCollections;
     int mean2 = sum2/sizeCollections;
 
+    int sampleRate = sizeCollections/(millis() - oldTime);
+
     //Finn avstand mellom max-indeksene.
-    //beregn vinkelen til lydkilden
+    int indexDiff = max1Index - max2Index;
+    double tidsdifferanse = indexDiff / sampleRate;
+    //beregn vinkelen til lydkilden - tilsvarer dobbeltspalte-eksperimentets beregning: http://home.phys.ntnu.no/brukdef/undervisning/tfy4160_lab/kompendie/BolgeoptikkTFY.pdf
+    //sin vinkel = (reiseVei1 - reiseVei2)/micAvstand
+    
     
     clear();
     oldTime = millis();
